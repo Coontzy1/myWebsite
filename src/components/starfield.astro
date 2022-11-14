@@ -1,14 +1,15 @@
-<div id="starfield" class="absolute inset-0">
-  <canvas id="starfield-canvas"></canvas>
+<div id="starfield-canvas" class="absolute inset-0">
+  <canvas id="eld-canvas"></canvas>
 </div>
 <canvas id="canvas" style="background: #111;"></canvas>
 <script>
-	var canvas = document.getElementById('#starfield-canvas');
+	var canvas = document.getElementById('canvas');
         var context = canvas.getContext('2d');
         var W = window.innerWidth;
         var H = window.innerHeight;
 
-        canvas.width = W;
+
+	canvas.width = W;
         canvas.height = H;
 
         var fontSize = 20;
