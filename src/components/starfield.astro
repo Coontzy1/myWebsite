@@ -9,13 +9,13 @@
         canvas.width = W;
         canvas.height = H;
 
-        var fontSize = 20;
+        var fontSize = 22;
         var columns = Math.floor(W / fontSize);
         var drops = [];
         for(var i=0; i<columns; i++){
             drops.push(0);
         }
-        var str = "Brendan Glancy";
+        var str = "Hacker";
         function draw(){
             context.fillStyle = "rgba(0,0,0,0.05)";
             context.fillRect(0, 0, W, H);
@@ -33,5 +33,5 @@
             }
         }
         draw();
-        setInterval(draw, 35);
+        setInterval(draw, 5);
 </script>
