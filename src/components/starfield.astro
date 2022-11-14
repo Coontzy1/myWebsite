@@ -1,15 +1,12 @@
-<div id="starfield-canvas" class="absolute inset-0">
-  <canvas id="eld-canvas"></canvas>
-</div>
-<canvas id="canvas" style="background: #111;"></canvas>
+<canvas id="starfield" class="absolute inset-0"></canvas>
 <script>
-	var canvas = document.getElementById('canvas');
+    var canvas = document.getElementById('starfield');
         var context = canvas.getContext('2d');
         var W = window.innerWidth;
         var H = window.innerHeight;
 
 
-	canvas.width = W;
+        canvas.width = W;
         canvas.height = H;
 
         var fontSize = 20;
@@ -18,12 +15,12 @@
         for(var i=0; i<columns; i++){
             drops.push(0);
         }
-        var str = "JavaScript Hacking Effect";
+        var str = "Brendan Glancy";
         function draw(){
             context.fillStyle = "rgba(0,0,0,0.05)";
             context.fillRect(0, 0, W, H);
             context.fontSize = "700 " + fontSize + "px";
-            context.fillStyle = "#00cc33";
+            context.fillStyle = "#FFFFFF";
             for(var i=0; i<columns; i++){
                 var index = Math.floor(Math.random()*str.length);
                 var x = i * fontSize;
