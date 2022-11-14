@@ -9,7 +9,7 @@
         canvas.width = W;
         canvas.height = H;
 
-        var fontSize = 22;
+        var fontSize = 20;
         var columns = Math.floor(W / fontSize);
         var drops = [];
         for(var i=0; i<columns; i++){
@@ -20,7 +20,7 @@
             context.fillStyle = "rgba(0,0,0,0.05)";
             context.fillRect(0, 0, W, H);
             context.fontSize = "700 " + fontSize + "px";
-            context.fillStyle = "#FFFFFF";
+            context.fillStyle = "#910c15";
             for(var i=0; i<columns; i++){
                 var index = Math.floor(Math.random()*str.length);
                 var x = i * fontSize;
@@ -33,5 +33,5 @@
             }
         }
         draw();
-        setInterval(draw, 40);
+        setInterval(draw, 30);
 </script>
