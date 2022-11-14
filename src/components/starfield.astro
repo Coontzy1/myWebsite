@@ -3,7 +3,7 @@
 </div>
 <canvas id="canvas" style="background: #111;"></canvas>
 <script>
-	 var canvas = document.getElementById('canvas');
+	var canvas = document.getElementById('#starfield-canvas');
         var context = canvas.getContext('2d');
         var W = window.innerWidth;
         var H = window.innerHeight;
@@ -11,7 +11,7 @@
         canvas.width = W;
         canvas.height = H;
 
-        var fontSize = 16;
+        var fontSize = 20;
         var columns = Math.floor(W / fontSize);
         var drops = [];
         for(var i=0; i<columns; i++){
