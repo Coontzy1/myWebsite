@@ -1,0 +1,81 @@
+---
+import "../../styles/index.css"
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import getPostData from '../../utils/getPostData';
+
+export async function getStaticPaths() {
+  const posts = await Astro.glob('../../data/blog-posts/*.md');
+  return posts.map(p => ({
+    params: { slug: p.file.split('/').pop().split('.').shift() },
+    props: { post: p },
+  }));
+}
+
+const { Content, frontmatter } = Astro.props.post;
+const { title, description, publishDate } = frontmatter;
+const { slug, readingTime } = getPostData(Astro.props.post);
+const permalink = `${Astro.site.href}${slug}`;
+---
+
+<BaseLayout title={title} description={description} permalink={permalink} current="blog">
+  <header>
+    <p>{publishDate} ~ {readingTime}</p>
+    <h1>{title}</h1>
+    <hr />
+  </header>
+  <div class="container">
+    <article class="content">
+      <Content />
+    </article>
+    <hr />
+  </div>
+</BaseLayout>
+
+<!-- initialize theme -->
+    <script is:inline>
+      const themeSaved = localStorage.getItem("theme");
+      if (themeSaved) {
+        document.documentElement.dataset.theme = themeSaved;
+      } else {
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        document.documentElement.dataset.theme = prefersDark ? "dark" : "light";
+      }
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", (event) => {
+          if (!localStorage.getItem("theme")) {
+            document.documentElement.dataset.theme = event.matches
+              ? "dark"
+              : "light";
+          }
+        });
+    </script>
+
+<style>
+  header {
+    text-align: center;
+  }
+
+  header h1 {
+    margin-bottom: 0.7em;
+  }
+
+  header p {
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-family: var(--font-family-sans);
+    font-weight: 600;
+  }
+
+  header hr {
+    min-width: 100px;
+    width: 30%;
+  }
+
+  /* Make the Background color #202122;*/
+  .container {
+    background-color: #202122;
+  }
+</style>
