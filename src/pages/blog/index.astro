@@ -1,0 +1,71 @@
+---
+import "../../styles/index.css"
+
+const title = 'Blog'
+const description = 'Blog description'
+const permalink = `${Astro.site.href}blog`;
+
+let allPosts = await Astro.glob('../../data/blog-posts/*.md');
+allPosts = allPosts.sort((a, b) => new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf());
+---
+
+<div class="container">
+  <h1>Blog</h1>
+  {allPosts.map((post, index) => {
+    const href = `/blog/${post.file.split('/').pop().split('.').shift()}`;
+    return (
+      <div>
+        { index !== 0 && <hr /> }
+        <div class="post-item">
+          <h2>
+            <a href={href}>{post.frontmatter.title}</a>
+          </h2>
+          <p>{post.frontmatter.description}</p>
+          <div class="post-item-footer">
+            <span class="post-item-date">— {post.frontmatter.publishDate}</span>
+          </div>
+        </div>
+      </div>
+    )
+  })}
+</div>
+
+<script type="module">
+const themeSaved = localStorage.getItem("theme");
+      if (themeSaved) {
+        document.documentElement.dataset.theme = themeSaved;
+      } else {
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        document.documentElement.dataset.theme = prefersDark ? "dark" : "light";
+      }
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", (event) => {
+          if (!localStorage.getItem("theme")) {
+            document.documentElement.dataset.theme = event.matches
+              ? "dark"
+              : "light";
+          }
+        });
+</script>
+
+
+<style>
+  h2,
+  .post-item-footer {
+    font-family: var(--font-family-sans);
+    font-weight: 700;
+  }
+  .post-item-date {
+    color: var(--text-secondary);
+    text-align: left;
+    text-transform: uppercase;
+    margin-right: 16px;
+  }
+  hr {
+    margin: 60px auto;
+  }
+</style>
+
