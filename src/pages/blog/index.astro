@@ -1,12 +1,13 @@
 ---
 import "../../styles/index.css"
+import Header from "~/components/blogheader.astro";
 
 const { generator, site } = Astro
 const title = 'Blog'
 const description = 'Blog description'
 const permalink = `${Astro.site.href}blog`;
 
-let allPosts = await Astro.glob('../../data/blog-posts/*.md');
+let allPosts = await Astro.glob('../../data/buckeyeCTF/blog-posts/*.md');
 allPosts = allPosts.sort((a, b) => new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf());
 ---
 
@@ -41,7 +42,8 @@ allPosts = allPosts.sort((a, b) => new Date(b.frontmatter.publishDate).valueOf()
       />
     </noscript>
 
-<div>
+<Header />
+<div class="blogcontainer">
   {allPosts.map((post, index) => {
     const href = `/blog/${post.file.split('/').pop().split('.').shift()}`;
     return (
@@ -51,7 +53,6 @@ allPosts = allPosts.sort((a, b) => new Date(b.frontmatter.publishDate).valueOf()
           <h2>
             <a href={href}>{post.frontmatter.title}</a>
           </h2>
-          <p>{post.frontmatter.description}</p>
           <div class="post-item-footer">
             <span class="post-item-date">— {post.frontmatter.publishDate}</span>
           </div>
@@ -114,5 +115,13 @@ const themeSaved = localStorage.getItem("theme");
   h1, h2, h3, h4, h5, h6 {
     color: #F4729F;
   }
+
+  .blogcontainer {
+    /* move the content down to make room for the header */
+    margin-top: 8rem;
+    margin-bottom: 8rem;
+  }
+
+  /* Make the page longer so the bottom isn't cut off */
 </style>
 </html>
