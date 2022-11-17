@@ -1,6 +1,7 @@
 ---
 import "../../styles/index.css"
 import Header from "~/components/blogheader.astro";
+import BaseLayout from "~/layouts/BaseLayout.astro";
 
 const { generator, site } = Astro
 const title = 'Blog'
@@ -43,24 +44,23 @@ allPosts = allPosts.sort((a, b) => new Date(b.frontmatter.publishDate).valueOf()
     </noscript>
 
 <Header />
-<div class="blogcontainer">
-  {allPosts.map((post, index) => {
-    const href = `/blog/${post.file.split('/').pop().split('.').shift()}`;
-    return (
-      <div>
-        { index !== 0 && <hr /> }
-        <div class="post-item">
-          <h2>
-            <a href={href}>{post.frontmatter.title}</a>
-          </h2>
-          <div class="post-item-footer">
-            <span class="post-item-date">— {post.frontmatter.publishDate}</span>
+  <div class="blogcontainer">
+    <h1>BuckeyeCTF</h1>
+    <br />
+    {allPosts.map((post, index) => {
+      const href = `/blog/${post.file.split('/').pop().split('.').shift()}`;
+      return (
+        <div>
+          <div class="post-item">
+            <h2>
+              <a href={href}>- {post.frontmatter.title}</a>
+            </h2>
           </div>
         </div>
-      </div>
-    )
-  })}
-</div>
+      )
+    })}
+  </div>
+
 <script type="module">
 const themeSaved = localStorage.getItem("theme");
   // Make the theme dark by default
@@ -72,6 +72,13 @@ const themeSaved = localStorage.getItem("theme");
 
 
 <style>
+  /* Center H1 and move to the left */
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 750;
+    text-align: center;
+    margin-right: 50rem;
+  }
   h2,
   .post-item-footer {
     font-family: var(--font-family-sans);

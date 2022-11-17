@@ -6,7 +6,7 @@ import Post from '../../components/Post.astro';
 import "../../styles/globalblog.css";
 
 export async function getStaticPaths() {
-  const posts = await Astro.glob('../../data/blog-posts/*.md');
+  const posts = await Astro.glob('../../data/buckeyeCTF/blog-posts/*.md');
   return posts.map(p => ({
     params: { slug: p.file.split('/').pop().split('.').shift() },
     props: { post: p },
