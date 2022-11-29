@@ -6,7 +6,7 @@ import HeroImage from "~/components/hero-image.astro";
 import Starfield from "~/components/starfield.astro";
 import GitHubCorner from "./github-corner.astro";
 
-const widths = [450, 800];
+const widths = [450, 700];
 const sizes = "(min-width: 640px) 42vw, 67vw";
 ---
 
@@ -20,7 +20,6 @@ const sizes = "(min-width: 640px) 42vw, 67vw";
     <h2
       class="flex flex-col self-end gap-2 sm:gap-4 sm:self-auto sm:justify-self-end"
     >
-      <Icon name="logomark" class="h-24 text-white md:h-32" />
       <div
         class="font-extrabold tracking-tighter text-center text-8xl gradient-text"
       >
@@ -30,7 +29,7 @@ const sizes = "(min-width: 640px) 42vw, 67vw";
     </h2>
     <div
       id="astronaut"
-      class="self-start w-2/3 max-w-3xl sm:w-10/12 sm:self-auto sm:justify-self-start"
+      class="self-start w-1/2 max-w-2xl sm:w-10/12 sm:self-auto sm:justify-self-start"
     >
       <Picture
         class="object-cover w-full h-full"
