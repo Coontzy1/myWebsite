@@ -1,13 +1,12 @@
 ---
 import { Picture } from "@astrojs/image/components";
 import { Icon } from "astro-icon";
-import astronautImage from "~/assets/cyber.png";
 import HeroImage from "~/components/hero-image.astro";
 import Starfield from "~/components/starfield.astro";
 import GitHubCorner from "./github-corner.astro";
 
-const widths = [450, 700];
-const sizes = "(min-width: 640px) 42vw, 67vw";
+const widths = [250, 400];
+const sizes = "(min-width: 640px) 32vw, 47vw";
 ---
 
 <section class="relative h-full bg-black">
@@ -23,19 +22,22 @@ const sizes = "(min-width: 640px) 42vw, 67vw";
       <div
         class="font-extrabold tracking-tighter text-center text-8xl gradient-text"
       >
-	Austin
-	<br /> Coontz
+  Hello, I'm Austin
+      </div>
+      <div class="text-2xl text-center text-gray-300">
+        I'm Unemployed 
       </div>
     </h2>
     <div
       id="astronaut"
-      class="self-start w-1/2 max-w-3xl sm:w-10/12 sm:self-auto sm:justify-self-middle"
+      class="self-start w-1/3 max-w-1xl sm:w-10/12 sm:self-auto sm:justify-self-middle"
     >
       <Picture
-        class="object-cover w-full h-full"
-        src={astronautImage}
+        class="object-cover w-half h-half"
+        src="https://www.hersheyland.com/content/dam/hersheyland/en-us/life-style/brands/hersheys/p3.png"
         widths={widths}
         sizes={sizes}
+        aspectRatio={1.7}
         alt="A floating astronaut in a space suit"
       />
     </div>

@@ -1,37 +1,75 @@
-<canvas id="starfield" class="absolute inset-0"></canvas>
+<canvas id="gameOfLife" class="absolute inset-0"></canvas>
 <script>
-    var canvas = document.getElementById('starfield');
-        var context = canvas.getContext('2d');
-        var W = window.innerWidth;
-        var H = window.innerHeight;
+    var canvas = document.getElementById('gameOfLife');
+    var context = canvas.getContext('2d');
+    var W = window.innerWidth;
+    var H = window.innerHeight;
 
+    canvas.width = W;
+    canvas.height = H;
 
-        canvas.width = W;
-        canvas.height = H;
+    var cellSize = 5;
+    var columns = Math.floor(W / cellSize);
+    var rows = Math.floor(H / cellSize);
 
-        var fontSize = 20;
-        var columns = Math.floor(W / fontSize);
-        var drops = [];
-        for(var i=0; i<columns; i++){
-            drops.push(0);
-        }
-        var str = "琉球語派琉球諸語島言葉";
-        function draw(){
-            context.fillStyle = "rgba(0,0,0,0.05)";
-            context.fillRect(0, 0, W, H);
-            context.fontSize = "700 " + fontSize + "px";
-            context.fillStyle = "#7761F1";
-            for(var i=0; i<columns; i++){
-                var index = Math.floor(Math.random()*str.length);
-                var x = i * fontSize;
-                var y = drops[i] * fontSize;
-                context.fillText(str[index], x, y);
-                if(y >= canvas.height && Math.random() > 0.99){
-                    drops[i] = 0;
+    // Initialize grid
+    var grid = Array.from({ length: rows }, () => Array.from({ length: columns }, () => Math.round(Math.random())));
+
+    // Rules of the game
+    const rules = { live: [2, 3], dead: [3] };
+
+    // Update grid for game of life
+    function updateGrid() {
+        var newGrid = grid.map(arr => [...arr]);
+
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < columns; j++) {
+                var liveNeighbors = countNeighbors(grid, i, j);
+
+                if (grid[i][j] === 1 && !rules.live.includes(liveNeighbors)) {
+                    newGrid[i][j] = 0;
+                } else if (grid[i][j] === 0 && rules.dead.includes(liveNeighbors)) {
+                    newGrid[i][j] = 1;
                 }
-                drops[i]++;
             }
         }
-        draw();
-        setInterval(draw, 30);
+
+        grid = newGrid;
+    }
+
+    // Count live neighbors
+    function countNeighbors(grid, x, y) {
+        var sum = 0;
+        for (let i = -1; i <= 1; i++) {
+            for (let j = -1; j <= 1; j++) {
+                var col = (x + i + rows) % rows;
+                var row = (y + j + columns) % columns;
+                sum += grid[col][row];
+            }
+        }
+        sum -= grid[x][y];
+        return sum;
+    }
+
+    // Draw the grid
+    function drawGrid() {
+        context.clearRect(0, 0, W, H);
+
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < columns; j++) {
+                var color = grid[i][j] ? '#7761F1' : '#000'; // Live cells in purple, dead cells in black
+                context.fillStyle = color;
+                context.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
+            }
+        }
+    }
+
+    // Animation loop
+    function animate() {
+        updateGrid();
+        drawGrid();
+        requestAnimationFrame(animate);
+    }
+
+    animate();
 </script>
