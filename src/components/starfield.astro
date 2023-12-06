@@ -8,9 +8,11 @@
     canvas.width = W;
     canvas.height = H;
 
-    var cellSize = 5;
-    var columns = Math.floor(W / cellSize);
-    var rows = Math.floor(H / cellSize);
+    var cellSize = 10; // Increased cell size
+    var gap = 35; // Gap between cells
+    var effectiveCellSize = cellSize + gap; // Total size including the gap
+    var columns = Math.floor(W / effectiveCellSize);
+    var rows = Math.floor(H / effectiveCellSize);
 
     // Initialize grid
     var grid = Array.from({ length: rows }, () => Array.from({ length: columns }, () => Math.round(Math.random())));
@@ -27,9 +29,13 @@
                 var liveNeighbors = countNeighbors(grid, i, j);
 
                 if (grid[i][j] === 1 && !rules.live.includes(liveNeighbors)) {
-                    newGrid[i][j] = 0;
+                    if (Math.random() > 0.999) { // Slow down the changes
+                        newGrid[i][j] = 0;
+                    }
                 } else if (grid[i][j] === 0 && rules.dead.includes(liveNeighbors)) {
-                    newGrid[i][j] = 1;
+                    if (Math.random() > 0.99) { // Slow down the changes
+                        newGrid[i][j] = 1;
+                    }
                 }
             }
         }
@@ -59,7 +65,7 @@
             for (let j = 0; j < columns; j++) {
                 var color = grid[i][j] ? '#7761F1' : '#000'; // Live cells in purple, dead cells in black
                 context.fillStyle = color;
-                context.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
+                context.fillRect(j * effectiveCellSize, i * effectiveCellSize, cellSize, cellSize);
             }
         }
     }
